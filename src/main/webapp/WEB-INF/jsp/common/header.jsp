@@ -23,12 +23,12 @@
 			      <li class="nav-item dropdown active">
 			        <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
 			          aria-haspopup="true" aria-expanded="false">
-			          Margarita Salas &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-user-circle fa-lg"></i>
+			          ${usuarioSesion.nombre} ${usuarioSesion.apellido1} ${usuarioSesion.apellido2} &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-user-circle fa-lg"></i>
 			        </a>
 			        <div class="dropdown-menu dropdown-menu-right dropdown-default"
 			          aria-labelledby="navbarDropdownMenuLink-333">
 			          <a class="dropdown-item" href="#">Mi perfil</a>
-			          <a class="dropdown-item" href="#">Cerrar sesión</a>
+			          <a class="dropdown-item" href='<spring:url value="/logout.do"/>'>Cerrar sesión</a>
 			        </div>
 			      </li>
 			    </ul>

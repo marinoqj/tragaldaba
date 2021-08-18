@@ -27,13 +27,15 @@ public class ConstantesService {
 		}
 
 
-		public List<Constante> getConstantes(int inicio, int elementosXpagina) {
+		public List<Constante> getConstantes(PaginacionBean paginacionBean) {
 
-			Pageable paginacion = PageRequest.of(inicio,elementosXpagina);
+			Pageable paginacion = PageRequest.of(paginacionBean.getInicio(),paginacionBean.getElementosXpagina());
+			
+			paginacionBean.setTotalRegistros(getTotalConstantes());
 
 			return constantesRepository.findAll(paginacion).getContent();
 
-		}
+		}		
 
 
 		public int getTotalConstantes(){

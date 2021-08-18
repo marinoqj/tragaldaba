@@ -45,15 +45,19 @@ public class ConstantesController {
 	@GetMapping(value=UrlConstants.URL_LISTADO_CONSTANTES)
 	public String list(@PathVariable("inicio") int inicio,Map<String, Object> map, HttpServletRequest request) {
 
+		
 		List<Constante> resultado = null;
+		boolean hayFiltro = false;
+		
 		PaginacionBean paginacion = new PaginacionBean();
-		paginacion.setInicio(Integer.valueOf(inicio - 1));
+		paginacion.setInicio(inicio - 1);
 
-		resultado = constantesService.getConstantes(paginacion.getInicio(), paginacion.getElementosXpagina());
+		resultado = constantesService.getConstantes(paginacion);
 
 		map.put("paginacion", paginacion);
 		map.put(CONSTANTES, resultado);
 		map.put(CONSTANTE,new Constante());
+		map.put(Constantes.ATRIBUTO_SESSION_HAY_FILTRO, hayFiltro);
 
 		return ForwardConstants.FWD_LISTADO_CONSTANTES;
 	}
@@ -167,7 +171,7 @@ public class ConstantesController {
 		}
 
 		if(inicio > 1) {
-			inicio = (inicio - 1) * 10;
+			inicio = (inicio - 1) * paginacion.getElementosXpagina();
 		}
 		
 		paginacion.setInicio(inicio);
@@ -177,7 +181,7 @@ public class ConstantesController {
 		total = constantesService.countConstantesByExample(constante);
 		
 		// Actualizamos la paginaci?n
-		paginacion.setInicio(inicio/10);
+		paginacion.setInicio(inicio/paginacion.getElementosXpagina());
 		paginacion.setTotalRegistros(total);
 		
 		
