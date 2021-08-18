@@ -15,6 +15,9 @@
 			      <li class="nav-item active">
 			        <a class="nav-link" href='<spring:url value="/inicio.do"/>'>Inicio <span class="sr-only">(current)</span></a>
 			      </li>
+			      <li class="nav-item active">
+			        <a class="nav-link" href='<spring:url value="/sec/listadoConstantes1.do"/>'>Constantes</a>
+			      </li>			      
 			    </ul>
 			    <ul class="navbar-nav">
 			      <li class="nav-item dropdown active">
