@@ -36,12 +36,16 @@ public class UrlConstants {
 	
 
 	// Constantes
-	public static final String URL_LISTADO_CONSTANTES = SEGURIDAD_CONSTANTES + "/listadoConstantes" + SUFIJO_PAGINACION;	
+	public static final String URL_LISTADO_CONSTANTES = SEGURIDAD_CONSTANTES + "/listadoConstantes" + SUFIJO_PAGINACION;
+	public static final String URL_LISTADO_CONSTANTES_FILTRADO = SEGURIDAD_CONSTANTES + "/listadoConstantesFiltrado" + SUFIJO_PAGINACION;
 	public static final String URL_ALTA_CONSTANTE = SEGURIDAD_CONSTANTES + "/altaConstante.do";
 	public static final String URL_INSERTAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/insertarConstante.do";
 	public static final String URL_EDITAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/editarConstante.do";
 	public static final String URL_ACTUALIZAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/actualizarConstante.do";
 	public static final String URL_BORRAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/borrarConstante.do";
+	
+	public static final String URL_VER_BUSQUEDA_CONSTANTE = SEGURIDAD_CONSTANTES + "/verBusquedaConstante.do";
+	public static final String URL_BUSCAR_CONSTANTES = SEGURIDAD_CONSTANTES + "/buscarConstantes.do";
 
 
 	
