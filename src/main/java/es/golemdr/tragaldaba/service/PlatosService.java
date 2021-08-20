@@ -8,7 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import es.golemdr.tragaldaba.domain.Constante;
 import es.golemdr.tragaldaba.domain.Plato;
+import es.golemdr.tragaldaba.ext.utils.paginacion.PaginacionBean;
 import es.golemdr.tragaldaba.repository.PlatosRepository;
 
 @Service
@@ -25,13 +27,15 @@ public class PlatosService {
 		}
 
 
-		public List<Plato> getPlatos(int inicio, int elementosXpagina) {
+		public List<Plato> getConstantes(PaginacionBean paginacionBean) {
 
-			Pageable paginacion = PageRequest.of(inicio,elementosXpagina);
+			Pageable paginacion = PageRequest.of(paginacionBean.getInicio(),paginacionBean.getElementosXpagina());
+			
+			paginacionBean.setTotalRegistros(getTotalPlatos());
 
 			return platosRepository.findAll(paginacion).getContent();
 
-		}
+		}	
 
 
 		public int getTotalPlatos(){
@@ -61,5 +65,18 @@ public class PlatosService {
 
 		}
 
+		
+		public List<Plato> findPlatosByExample(Plato plato, PaginacionBean paginacion) {
+
+			return platosRepository.findPlatos(plato, paginacion);
+
+		}
+		
+		public int countPlatosByExample(Plato plato) {
+
+			return platosRepository.findPlatos(plato, null).size();
+
+		}		
+		
 }
 

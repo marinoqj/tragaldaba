@@ -94,15 +94,17 @@ $(document).ready(function(){
 
 
 <div class="row">
-	<div class="col-md-8"></div>
+	<div class="col-md-8">&nbsp;</div>
 
-	<c:if test="${hayFiltro eq false}">
-		<mistags:paginacion accion="listadoConstantes" />
-	</c:if>
-
-	<c:if test="${hayFiltro eq true}">
-		<mistags:paginacion accion="listadoConstantesFiltrado" />
-	</c:if>
+	<div class="col-md-4">
+		<c:if test="${hayFiltro eq false}">
+			<mistags:paginacion accion="listadoConstantes" />
+		</c:if>
+	
+		<c:if test="${hayFiltro eq true}">
+			<mistags:paginacion accion="listadoConstantesFiltrado" />
+		</c:if>
+	</div>
 </div>
 
 
@@ -119,9 +121,9 @@ $(document).ready(function(){
 					
 					<th><spring:message code="label.literal"/></th>
 					
-					<th><spring:message code="label.valor"/></th>
+					<th><div class="text-right"><spring:message code="label.valor"/></div></th>
 					
-					<th><spring:message code="label.activa"/></th>
+					<th><div class="text-center"><spring:message code="label.activa"/></div></th>
 					
 					<th>&nbsp;</th>
 				</tr>

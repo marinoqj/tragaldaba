@@ -62,12 +62,14 @@ public class UrlConstants {
 	
 
 	// Platos
-	public static final String URL_LISTADO_PLATOS = SEGURIDAD_PLATOS + "/listadoPlatos" + SUFIJO_PAGINACION;	
+	public static final String URL_LISTADO_PLATOS = SEGURIDAD_PLATOS + "/listadoPlatos" + SUFIJO_PAGINACION;
+	public static final String URL_LISTADO_PLATOS_FILTRADO = SEGURIDAD_PLATOS + "/listadoPlatosFiltrado" + SUFIJO_PAGINACION;	
 	public static final String URL_ALTA_PLATO = SEGURIDAD_PLATOS + "/altaPlato.do";
 	public static final String URL_INSERTAR_PLATO = SEGURIDAD_PLATOS + "/insertarPlato.do";
 	public static final String URL_EDITAR_PLATO = SEGURIDAD_PLATOS + "/editarPlato.do";
 	public static final String URL_ACTUALIZAR_PLATO = SEGURIDAD_PLATOS + "/actualizarPlato.do";
 	public static final String URL_BORRAR_PLATO = SEGURIDAD_PLATOS + "/borrarPlato.do";
+	public static final String URL_BUSCAR_PLATOS = SEGURIDAD_PLATOS + "/buscarPlatos.do";
 
 
 	

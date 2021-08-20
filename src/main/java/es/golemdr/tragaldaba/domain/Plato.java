@@ -1,6 +1,8 @@
 package es.golemdr.tragaldaba.domain;
 
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +12,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="platos")
-public class Plato{
+public class Plato implements Serializable{
 
+
+	private static final long serialVersionUID = 7539528492813349836L;
 	private Long idPlato;
 	private String nombre;
 	private Double precio;
