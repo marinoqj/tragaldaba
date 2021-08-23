@@ -17,7 +17,13 @@
 			      </li>
 			      <li class="nav-item active">
 			        <a class="nav-link" href='<spring:url value="/sec/listadoConstantes1.do"/>'>Constantes</a>
-			      </li>			      
+			      </li>
+			      <li class="nav-item active">
+			        <a class="nav-link" href='<spring:url value="/sec/listadoPlatos1.do"/>'>Platos</a>
+			      </li>
+			      <li class="nav-item active">
+			        <a class="nav-link" href='<spring:url value="/sec/listadoProveedores1.do"/>'>Proveedores</a>
+			      </li>				      	
 			    </ul>
 			    <ul class="navbar-nav">
 			      <li class="nav-item dropdown active">

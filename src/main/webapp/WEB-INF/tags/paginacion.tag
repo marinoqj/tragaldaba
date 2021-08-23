@@ -7,7 +7,7 @@
 <%@ attribute name="accion" required="true" %>	
 
 
-<div class="col-md-4">
+
   <ul class="pagination pagination-sm pg-blue justify-content-end">
 	<c:if test="${(paginacion.totalPaginas) > 1}">
 			<c:if test="${paginacion.inicio == 0}">	
@@ -51,4 +51,3 @@
 	</c:if>			
 
   </ul>
-</div>

@@ -14,4 +14,6 @@ public class Constantes {
 	public static final String ATRIBUTO_SESSION_FILTRO = "filtro";
 	public static final String ATRIBUTO_SESSION_HAY_FILTRO = "hayFiltro";
 	
+	public static final String PREFIJO_MENSAJE_ERROR = "Se produjo el error : {0}";
+	
 }
