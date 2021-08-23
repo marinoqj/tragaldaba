@@ -1,12 +1,14 @@
 package es.golemdr.tragaldaba.controller;
 
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,8 +27,12 @@ import org.springframework.web.servlet.ModelAndView;
 import es.golemdr.tragaldaba.controller.constantes.ForwardConstants;
 import es.golemdr.tragaldaba.controller.constantes.UrlConstants;
 import es.golemdr.tragaldaba.domain.Proveedor;
+import es.golemdr.tragaldaba.domain.form.ProveedorForm;
+import es.golemdr.tragaldaba.ext.Constantes;
 import es.golemdr.tragaldaba.ext.utils.paginacion.PaginacionBean;
+import es.golemdr.tragaldaba.ext.utils.paginacion.PaginacionFactory;
 import es.golemdr.tragaldaba.service.ProveedoresService;
+
 
 
 @Controller
@@ -46,24 +52,39 @@ public class ProveedoresController {
 	public String list(@PathVariable("inicio") int inicio,Map<String, Object> map, HttpServletRequest request) {
 
 		List<Proveedor> resultado = null;
-		PaginacionBean paginacion = new PaginacionBean();
-		paginacion.setInicio(Integer.valueOf(inicio - 1));
+        boolean hayFiltro = false;
 
-		resultado = proveedoresService.getProveedores(paginacion.getInicio(), paginacion.getElementosXpagina());
+
+		PaginacionBean paginacion = new PaginacionBean();
+		paginacion.setInicio(inicio - 1);
+
+		resultado = proveedoresService.getProveedores(paginacion);
 
 		map.put("paginacion", paginacion);
 		map.put(PROVEEDORES, resultado);
-		map.put(PROVEEDOR,new Proveedor());
+		map.put(PROVEEDOR,new ProveedorForm());
+        map.put(Constantes.ATRIBUTO_SESSION_HAY_FILTRO, hayFiltro);
 
 		return ForwardConstants.FWD_LISTADO_PROVEEDORES;
 	}
 
 
 	@PostMapping(value=UrlConstants.URL_INSERTAR_PROVEEDOR)
-	public String insertar(Proveedor proveedor, Model model) {
+	public String insertar(ProveedorForm formulario, Model model) {
+
+		Proveedor entity = new Proveedor();
+
+		try {
+
+			BeanUtils.copyProperties(entity, formulario);
+
+		} catch (IllegalAccessException | InvocationTargetException e) {
+
+			log.error(Constantes.PREFIJO_MENSAJE_ERROR,e.getMessage());
+		}
 
 
-		proveedoresService.insertarActualizarProveedor(proveedor);
+		proveedoresService.insertarActualizarProveedor(entity);
 
 		return ForwardConstants.RED_LISTADO_PROVEEDORES; 
 	}
@@ -72,19 +93,29 @@ public class ProveedoresController {
 	@PostMapping(value=UrlConstants.URL_EDITAR_PROVEEDOR)
 	public String editar(String idProveedor, Map<String, Object> map) {
 
-		Proveedor resultado = null;
+		Proveedor entity = proveedoresService.getById(new Long(idProveedor));
 
-		resultado = proveedoresService.getById(new Long(idProveedor));
+		ProveedorForm formulario = new ProveedorForm();
+
+		try {
+
+			BeanUtils.copyProperties(formulario, entity);
+
+		} catch (IllegalAccessException | InvocationTargetException e) {
+
+			log.error(Constantes.PREFIJO_MENSAJE_ERROR,e.getMessage());
+		}
+
 
 		map.put("modo", "actualizar");
-		map.put(PROVEEDOR,resultado);
+		map.put(PROVEEDOR,formulario);
 
 		return ForwardConstants.FWD_PROVEEDOR_FORM;
 	}
 
 
 	@PostMapping(value=UrlConstants.URL_ACTUALIZAR_PROVEEDOR)
-	public String actualizar(@Valid Proveedor proveedor, BindingResult result, Model model) {
+	public String actualizar(@Valid ProveedorForm formulario, BindingResult result, Model model) {
 
 
 		String destino = null;
@@ -96,8 +127,21 @@ public class ProveedoresController {
 
 		}else{
 
-			proveedoresService.insertarActualizarProveedor(proveedor);
-			destino = ForwardConstants.RED_LISTADO_PROVEEDORES;
+			Proveedor entity = new Proveedor();
+
+			try {
+
+				BeanUtils.copyProperties(entity, formulario);
+
+				proveedoresService.insertarActualizarProveedor(entity);
+
+				destino = ForwardConstants.RED_LISTADO_PROVEEDORES;
+
+
+			} catch (IllegalAccessException | InvocationTargetException e) {
+
+				log.error(Constantes.PREFIJO_MENSAJE_ERROR,e.getMessage());
+			}
 
 		}
 
@@ -112,6 +156,92 @@ public class ProveedoresController {
 
 		return ForwardConstants.RED_LISTADO_PROVEEDORES;
 
+	}
+
+
+	@PostMapping(UrlConstants.URL_BUSCAR_PROVEEDORES)
+	public String buscarProveedores(ProveedorForm formulario, Map<String, Object> map, HttpServletRequest request) {
+
+		//Antes de nada quitamos el filtro de sesi?n si lo hay...
+		request.getSession(false).removeAttribute(Constantes.ATRIBUTO_SESSION_FILTRO);
+		PaginacionBean paginacion = PaginacionFactory.getPaginacionBean(request);
+		boolean hayFiltro = true;
+
+		int total = 0;
+
+		paginacion.setInicio(0);
+
+		List<Proveedor> resultado = null;
+
+		Proveedor entity = new Proveedor();
+
+		try {
+
+			BeanUtils.copyProperties(entity, formulario);
+
+			resultado = proveedoresService.findProveedoresByExample(entity, paginacion);
+			total = proveedoresService.countProveedoresByExample(entity);
+
+		} catch (IllegalAccessException | InvocationTargetException e) {
+
+			log.error(Constantes.PREFIJO_MENSAJE_ERROR,e.getMessage());
+		}
+
+		if(total > paginacion.getElementosXpagina()){
+
+			request.getSession(false).setAttribute(Constantes.ATRIBUTO_SESSION_FILTRO, entity);
+
+
+		}
+
+		paginacion.setInicio(0);
+		paginacion.setTotalRegistros(total);
+
+		map.put(PROVEEDORES, resultado);
+		map.put(PROVEEDOR,new ProveedorForm());
+		map.put(Constantes.ATRIBUTO_SESSION_HAY_FILTRO, hayFiltro);
+
+		return ForwardConstants.FWD_LISTADO_PROVEEDORES;
+
+	}
+
+	@RequestMapping(value=UrlConstants.URL_LISTADO_PROVEEDORES_FILTRADO, method=RequestMethod.GET)
+	public String listadoFiltrado(@PathVariable("inicio") int inicio,Model model, HttpServletRequest request) {
+
+		List<Proveedor> resultado = null;
+		PaginacionBean paginacion = PaginacionFactory.getPaginacionBean(request);
+		Proveedor proveedor = null;
+		boolean hayFiltro = true;
+
+		int total = 0;
+
+		Object filtro = request.getSession(false).getAttribute(Constantes.ATRIBUTO_SESSION_FILTRO);
+
+		if(filtro != null && filtro instanceof Proveedor){
+
+			proveedor = (Proveedor)filtro;
+		}
+
+		if(inicio > 1) {
+			inicio = (inicio - 1) * paginacion.getElementosXpagina();
+		}
+
+		paginacion.setInicio(inicio);
+
+
+		resultado = proveedoresService.findProveedoresByExample(proveedor, paginacion);
+		total = proveedoresService.countProveedoresByExample(proveedor);
+
+		// Actualizamos la paginaci?n
+		paginacion.setInicio(inicio/paginacion.getElementosXpagina());
+		paginacion.setTotalRegistros(total);
+
+
+		model.addAttribute(PROVEEDOR, new ProveedorForm());
+		model.addAttribute(PROVEEDORES, resultado);
+		model.addAttribute(Constantes.ATRIBUTO_SESSION_HAY_FILTRO, hayFiltro);
+
+		return ForwardConstants.FWD_LISTADO_PROVEEDORES;
 	}
 
 

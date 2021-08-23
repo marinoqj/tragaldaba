@@ -27,6 +27,7 @@ public class PlatosRepositoryCustomImpl implements PlatosRepositoryCustom{
 	public List<Plato> findPlatos(Plato filtro, PaginacionBean paginacion) {
 		
 		List<Plato> resultado = null;
+		Predicate condition = null;
 		
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<Plato> query = criteriaBuilder.createQuery(Plato.class);
@@ -34,11 +35,11 @@ public class PlatosRepositoryCustomImpl implements PlatosRepositoryCustom{
 
 		List<Predicate> predicates = new ArrayList<>();
 		if(filtro.getNombre() != null){
-		    Predicate condition = criteriaBuilder.like(plato.<String>get("nombre"),"%"+filtro.getNombre()+"%");
+		    condition = criteriaBuilder.like(plato.<String>get("nombre"),"%"+filtro.getNombre()+"%");
 		    predicates.add(condition);
 		}
 		if(filtro.getTipo() != null && filtro.getTipo() > 0){
-		    Predicate condition = criteriaBuilder.equal(plato.<String>get("tipo"),filtro.getTipo());
+		    condition = criteriaBuilder.equal(plato.<Long>get("tipo"),filtro.getTipo());
 		    predicates.add(condition);
 		}		
 		

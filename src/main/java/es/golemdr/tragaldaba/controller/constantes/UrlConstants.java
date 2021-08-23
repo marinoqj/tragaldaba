@@ -43,8 +43,6 @@ public class UrlConstants {
 	public static final String URL_EDITAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/editarConstante.do";
 	public static final String URL_ACTUALIZAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/actualizarConstante.do";
 	public static final String URL_BORRAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/borrarConstante.do";
-	
-	public static final String URL_VER_BUSQUEDA_CONSTANTE = SEGURIDAD_CONSTANTES + "/verBusquedaConstante.do";
 	public static final String URL_BUSCAR_CONSTANTES = SEGURIDAD_CONSTANTES + "/buscarConstantes.do";
 
 
@@ -75,12 +73,14 @@ public class UrlConstants {
 	
 
 	// Proveedores
-	public static final String URL_LISTADO_PROVEEDORES = SEGURIDAD_PROVEEDORES + "/listadoProveedores" + SUFIJO_PAGINACION;	
+	public static final String URL_LISTADO_PROVEEDORES = SEGURIDAD_PROVEEDORES + "/listadoProveedores" + SUFIJO_PAGINACION;
+	public static final String URL_LISTADO_PROVEEDORES_FILTRADO = SEGURIDAD_PROVEEDORES + "/listadoProveedoresFiltrado" + SUFIJO_PAGINACION;
 	public static final String URL_ALTA_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/altaProveedor.do";
 	public static final String URL_INSERTAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/insertarProveedor.do";
 	public static final String URL_EDITAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/editarProveedor.do";
 	public static final String URL_ACTUALIZAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/actualizarProveedor.do";
 	public static final String URL_BORRAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/borrarProveedor.do";
+    public static final String URL_BUSCAR_PROVEEDORES = SEGURIDAD_PROVEEDORES + "/buscarProveedores.do";
 
 
 	
