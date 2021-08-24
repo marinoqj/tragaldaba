@@ -17,8 +17,9 @@ import es.golemdr.tragaldaba.ext.utils.tools.GeneradorCodigo;
 
 public class CustomExceptionResolver extends SimpleMappingExceptionResolver{
 	
-	private static final Logger logger = LogManager.getLogger(CustomExceptionResolver.class);
+	private static final Logger log = LogManager.getLogger(CustomExceptionResolver.class);
 	
+	@Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
     	String mensaje = null;
@@ -37,15 +38,17 @@ public class CustomExceptionResolver extends SimpleMappingExceptionResolver{
     	codigo = GeneradorCodigo.generaCodigoExcepcion();
     	
     	
-    	logger.error("Se produjo una excepción de tipo : " + ex.getMessage());
-    	logger.error("El código de la excepción es : " + codigo);
-    	logger.error("La traza de la excepción es : " + recuperarTraza(ex, "LOG"));
+    	log.error(Constantes.PREFIJO_MENSAJE_TIPO_EXCEPCION,ex.getMessage());
+    	log.error(Constantes.PREFIJO_MENSAJE_CODIGO_EXCEPCION,codigo);    	
     	
+    	String trazaLog = recuperarTraza(ex, "LOG");
+    	log.error(Constantes.PREFIJO_MENSAJE_TRAZA_EXCEPCION,trazaLog);   	
     	
     	
     	request.setAttribute(Constantes.ATRIBUTO_MENSAJE, mensaje);
     	request.setAttribute(Constantes.ATRIBUTO_CODIGO, codigo);
-    	request.setAttribute(Constantes.ATRIBUTO_TRAZA, recuperarTraza(ex, "HTML"));
+    	String trazaHtml = recuperarTraza(ex, "HTML");
+    	request.setAttribute(Constantes.ATRIBUTO_TRAZA, trazaHtml);
     	
 
         view =  super.resolveException(request, response, handler, ex);
@@ -74,7 +77,9 @@ public class CustomExceptionResolver extends SimpleMappingExceptionResolver{
         msg.append("---------------------------------------------------------------------");
         msg.append(saltoLinea);
         msg.append(saltoLinea);
+        
         try {
+        	
             StringWriter sWriter = new StringWriter();
             PrintWriter pWriter = new PrintWriter(sWriter);
             throwable.printStackTrace(pWriter);
@@ -83,6 +88,7 @@ public class CustomExceptionResolver extends SimpleMappingExceptionResolver{
             msg.append("---------------------------------------------------------------------");
             msg.append(saltoLinea);
             sWriter.close();
+            
         } catch (Exception e) {
             msg.append(throwable.toString());
         }

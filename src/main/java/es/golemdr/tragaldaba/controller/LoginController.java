@@ -76,6 +76,8 @@ public class LoginController {
 			HttpSession session = request.getSession(false);
 			session.setAttribute(Constantes.ATRIBUTO_SESSION_USUARIO, usuarioLogado);
 			
+			log.info(Constantes.USUARIO_LOGADO_CORRECTAMENTE, usuarioLogado.getLogin());
+			
 			destino = ForwardConstants.FWD_HOME;
 
 			

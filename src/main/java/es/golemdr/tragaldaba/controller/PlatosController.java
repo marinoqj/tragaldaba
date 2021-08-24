@@ -204,7 +204,7 @@ public class PlatosController {
 
 	}
 	
-	@RequestMapping(value=UrlConstants.URL_LISTADO_PLATOS_FILTRADO, method=RequestMethod.GET)
+	@GetMapping(value=UrlConstants.URL_LISTADO_PLATOS_FILTRADO)
 	public String listadoFiltrado(@PathVariable("inicio") int inicio,Model model, HttpServletRequest request) {
 		
 		List<Plato> resultado = null;
@@ -216,7 +216,7 @@ public class PlatosController {
 				
 		Object filtro = request.getSession(false).getAttribute(Constantes.ATRIBUTO_SESSION_FILTRO);
 		
-		if(filtro != null && filtro instanceof Plato){
+		if(filtro instanceof Plato){
 			
 			plato = (Plato)filtro;
 		}

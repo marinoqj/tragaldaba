@@ -2,6 +2,10 @@ package es.golemdr.tragaldaba.controller.constantes;
 
 
 public class UrlConstants {
+	
+	private UrlConstants() {
+		throw new IllegalStateException("ForwardConstants class");
+	}
 
 	public static final String SUFIJO_PAGINACION = 	"{inicio}.do";
 	public static final String URL_LOGIN = "/login.do";
