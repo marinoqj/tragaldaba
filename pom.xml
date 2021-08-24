@@ -577,9 +577,9 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+				<groupId>com.nickwongdev</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.11</version>
+				<version>1.12.6</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.aspectj</groupId>
