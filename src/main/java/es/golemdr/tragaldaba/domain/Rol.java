@@ -1,6 +1,7 @@
 package es.golemdr.tragaldaba.domain;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="roles")
-public class Rol{
+public class Rol implements Serializable{
 
+
+	private static final long serialVersionUID = -8085723214863186284L;
 	private Long idRol;
 	private String nombreRol;
 

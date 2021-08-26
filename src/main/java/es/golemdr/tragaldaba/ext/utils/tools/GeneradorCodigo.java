@@ -1,13 +1,14 @@
 package es.golemdr.tragaldaba.ext.utils.tools;
 
-import java.util.Random;
+import java.security.SecureRandom;
+
 
 public class GeneradorCodigo {
 	
-	private static Random aleatorio; 
+	private static SecureRandom aleatorio; 
 	
 	static {
-		aleatorio = new Random();
+		aleatorio = new SecureRandom();
 	}
 	
 	private GeneradorCodigo() {
