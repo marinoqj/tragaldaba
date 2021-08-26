@@ -115,15 +115,15 @@ $(document).ready(function(){
 		<thead class="blue lighten-4">
 			<tr class="bg-light">
 	    		
-					<th><spring:message code="label.nombre"/></th>
+					<th scope="col"><spring:message code="label.nombre"/></th>
 					
-					<th><spring:message code="label.precio"/></th>
+					<th scope="col"><spring:message code="label.precio"/></th>
 					
-					<th><spring:message code="label.nombreFoto"/></th>
+					<th scope="col"><spring:message code="label.nombreFoto"/></th>
 					
-					<th><spring:message code="label.tipo"/></th>
+					<th scope="col"><spring:message code="label.tipo"/></th>
 					
-					<th width="10%">&nbsp;</th>
+					<th scope="col">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -166,7 +166,7 @@ $(document).ready(function(){
 			<br>
 			<br>
 			<br>
-			<center>No hay platos que mostrar...</center>
+			<div class="text-center">No hay platos que mostrar...</div>
 		</c:if>
 
 		<div class="row">

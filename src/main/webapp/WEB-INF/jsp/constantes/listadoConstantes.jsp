@@ -115,17 +115,17 @@ $(document).ready(function(){
 		<thead class="blue lighten-4">
 			<tr class="bg-light">
 	    		
-					<th><spring:message code="label.familia"/></th>
+					<th scope="col"><spring:message code="label.familia"/></th>
 					
-					<th><spring:message code="label.atributo"/></th>
+					<th scope="col"><spring:message code="label.atributo"/></th>
 					
-					<th><spring:message code="label.literal"/></th>
+					<th scope="col"><spring:message code="label.literal"/></th>
 					
-					<th><div class="text-right"><spring:message code="label.valor"/></div></th>
+					<th scope="col"><div class="text-right"><spring:message code="label.valor"/></div></th>
 					
-					<th><div class="text-center"><spring:message code="label.activa"/></div></th>
+					<th scope="col" scope="col"><div class="text-center"><spring:message code="label.activa"/></div></th>
 					
-					<th>&nbsp;</th>
+					<th scope="col">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -182,7 +182,7 @@ $(document).ready(function(){
 			<br>
 			<br>
 			<br>
-			<center>No hay constantes que mostrar...</center>
+			<div class="text-center">No hay constantes que mostrar...</div>
 		</c:if>
 
 		<div class="row">

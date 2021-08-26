@@ -9,18 +9,13 @@ import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import es.golemdr.tragaldaba.controller.constantes.ForwardConstants;
 import es.golemdr.tragaldaba.controller.constantes.UrlConstants;
@@ -47,7 +42,7 @@ public class PedidosController {
 
 		List<Pedido> resultado = null;
 		PaginacionBean paginacion = new PaginacionBean();
-		paginacion.setInicio(Integer.valueOf(inicio - 1));
+		paginacion.setInicio(inicio - 1);
 
 		resultado = pedidosService.getPedidos(paginacion.getInicio(), paginacion.getElementosXpagina());
 
@@ -74,7 +69,7 @@ public class PedidosController {
 
 		Pedido resultado = null;
 
-		resultado = pedidosService.getById(new Long(idPedido));
+		resultado = pedidosService.getById(Long.valueOf(idPedido));
 
 		map.put("modo", "actualizar");
 		map.put(PEDIDO,resultado);
@@ -108,7 +103,7 @@ public class PedidosController {
 	@PostMapping(value=UrlConstants.URL_BORRAR_PEDIDO)
 	public String borrar(String idPedido, Map<String, Object> map) {
 
-		pedidosService.borrarPedido(new Long(idPedido));
+		pedidosService.borrarPedido(Long.valueOf(idPedido));
 
 		return ForwardConstants.RED_LISTADO_PEDIDOS;
 

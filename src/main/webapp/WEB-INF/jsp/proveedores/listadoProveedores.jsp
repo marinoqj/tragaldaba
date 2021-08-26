@@ -107,15 +107,15 @@ $(document).ready(function(){
 		<thead class="blue lighten-4">
 			<tr class="bg-light">
 	    		
-					<th><spring:message code="label.razonSocial"/></th>
+					<th scope="col"><spring:message code="label.razonSocial"/></th>
 					
-					<th><spring:message code="label.direccion"/></th>
+					<th scope="col"><spring:message code="label.direccion"/></th>
 					
-					<th><spring:message code="label.localidad"/></th>
+					<th scope="col"><spring:message code="label.localidad"/></th>
 					
-					<th><spring:message code="label.telefono"/></th>
+					<th scope="col"><spring:message code="label.telefono"/></th>
 					
-					<th width="10%">&nbsp;</th>
+					<th scope="col">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -158,7 +158,7 @@ $(document).ready(function(){
 			<br>
 			<br>
 			<br>
-			<center>No hay proveedores que mostrar...</center>
+			<div class="text-center">No hay proveedores que mostrar...</div>
 		</c:if>
 
 		<div class="row">

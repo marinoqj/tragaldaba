@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import es.golemdr.tragaldaba.domain.Proveedor;
-import es.golemdr.tragaldaba.repository.ProveedoresRepository;
 import es.golemdr.tragaldaba.ext.utils.paginacion.PaginacionBean;
+import es.golemdr.tragaldaba.repository.ProveedoresRepository;
 
 @Service
 public class ProveedoresService {

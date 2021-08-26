@@ -8,7 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.golemdr.tragaldaba.domain.Constante;
 import es.golemdr.tragaldaba.domain.Plato;
 import es.golemdr.tragaldaba.ext.utils.paginacion.PaginacionBean;
 import es.golemdr.tragaldaba.repository.PlatosRepository;
