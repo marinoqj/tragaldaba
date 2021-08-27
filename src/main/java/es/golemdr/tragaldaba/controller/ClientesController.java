@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.golemdr.tragaldaba.controller.constantes.ForwardConstants;
@@ -113,8 +114,7 @@ public class ClientesController {
 		return ForwardConstants.RED_LISTADO_CLIENTES;
 
 	}
-
-
+	
 
 }
 

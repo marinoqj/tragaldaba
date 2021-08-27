@@ -88,6 +88,23 @@
         <put-attribute name="title" value="Listado de proveedores"/>
         <put-attribute name="body"  value="/WEB-INF/jsp/proveedores/listadoProveedores.jsp"/>
     </definition>
+    
+	<!-- Realizar Pedidos -->
+    <definition name="RealizarPedido" extends="baseLayout">
+        <put-attribute name="title" value="Realizar Pedidos"/>
+        <put-attribute name="body"  value="/WEB-INF/jsp/pedidos/realizarPedido.jsp"/>
+    </definition>
+    
+     <definition name="ConfirmarPedido" extends="baseLayout">
+        <put-attribute name="title" value="Confirmar Pedido"/>
+        <put-attribute name="body"  value="/WEB-INF/jsp/clientes/datosClienteForm.jsp"/>
+    </definition>
+    
+     <definition name="TerminarPedido" extends="baseLayout">
+        <put-attribute name="title" value="Terminar Pedido"/>
+        <put-attribute name="body"  value="/WEB-INF/jsp/common/mensaje.jsp"/>
+    </definition>
+    
 	
       
 </tiles-definitions>

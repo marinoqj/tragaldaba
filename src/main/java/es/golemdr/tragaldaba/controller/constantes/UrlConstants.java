@@ -20,7 +20,9 @@ public class UrlConstants {
 	public static final String SEGURIDAD_CONSTANTES =  "/sec";	
 	public static final String SEGURIDAD_PEDIDOS =  "/sec";	
 	public static final String SEGURIDAD_PLATOS =  "/sec";	
-	public static final String SEGURIDAD_PROVEEDORES =  "/sec";		
+	public static final String SEGURIDAD_PROVEEDORES =  "/sec";
+	
+	
 
 	
 
@@ -80,7 +82,11 @@ public class UrlConstants {
 	public static final String URL_ACTUALIZAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/actualizarProveedor.do";
 	public static final String URL_BORRAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/borrarProveedor.do";
 
-
+	// Tragaldaba 
+	public static final String URL_REALIZAR_PEDIDO =  "/realizarPedido.do";
+	public static final String URL_CONFIRMAR_PEDIDO =  "/confirmarPedido.do";
+	public static final String URL_TERMINAR_PEDIDO =  "/terminarPedido.do";
+	public static final String URL_EXISTE_CLIENTE = "/existeCliente.do";
 	
 
 }
