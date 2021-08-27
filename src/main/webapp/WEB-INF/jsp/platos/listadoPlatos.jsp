@@ -32,22 +32,40 @@ function mostrarConfirm(message) {
     $('#alertModal').find('.modal-body p').html(message);
     $('#alertModal').modal('show');
 }
+
+
+$(document).ready(function(){
+    $('#ventanaBuscar').on('hidden.bs.modal', function () {
+        $('form[id="formularioBuscar"]').trigger('reset');
+    });
+});
 </script>
 
 
 <!-- Warning Modal -->
 <div id="alertModal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-         <p></p>
-      </div>
-      <div class="modal-footer">
-         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancelar</button>
-         <a class="btn btn-primary btn-sm" role="button" href="#" id="aceptarBorrar"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;<spring:message code="button.aceptar" /></a>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header  bg-danger">
+				<h5 class="modal-title text-white">
+					<i class="fas fa-exclamation-triangle fa-sm"></i>&nbsp;&nbsp;&#161;Atenci&oacute;n&#33;
+				</h5>
+				<button class="close text-white" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p class="text-danger"></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm"
+					data-dismiss="modal">
+					<i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancelar
+				</button>
+				<a class="btn btn-danger btn-sm" role="button" href="#"
+					id="aceptarBorrar"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;<spring:message
+						code="button.aceptar" /></a>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- ./ Warning Modal -->
@@ -59,8 +77,7 @@ function mostrarConfirm(message) {
 		<br>
 		<br>
 		<br>
-		<br>
-		<br>
+
 
 
 		<div class="row">
@@ -77,38 +94,19 @@ function mostrarConfirm(message) {
 
 
 
-		<c:if  test="${!empty platos}">
 
-		<div class="row">
-			<div class="col-md-12">
-			  <a class="btn btn-secondary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Buscar</a> <mistags:paginacion accion="listadoplatos" />
-			</div>
-		</div>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body">
-	<div class="row">
-		<div class="col-md-12">
-			<!-- Extended default form grid -->
-			<form>
-				<!-- Grid row -->
-				<div class="form-row">
-					Buscador
-				</div>
-				<!-- Grid row -->
-				<div class="form-row">
-					<div class="form-group col-md-11">
-						&nbsp;
-					</div>
-					<div class="form-group col-md-1">
-						<button type="button" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> &nbsp;&nbsp;Buscar</button>
-					</div>
-				</div>
+<c:if  test="${!empty platos}">
 
-			</form>
-			<!-- Extended default form grid -->
-		</div>
-	</div>
-  </div>
+<div class="row">
+	<div class="col-md-8"></div>
+
+	<c:if test="${hayFiltro eq false}">
+		<mistags:paginacion accion="listadoPlatos" />
+	</c:if>
+
+	<c:if test="${hayFiltro eq true}">
+		<mistags:paginacion accion="listadoPlatosFiltrado" />
+	</c:if>
 </div>
 
 <br>
@@ -117,15 +115,15 @@ function mostrarConfirm(message) {
 		<thead class="blue lighten-4">
 			<tr class="bg-light">
 	    		
-					<th><spring:message code="label.nombre"/></th>
+					<th scope="col"><spring:message code="label.nombre"/></th>
 					
-					<th><spring:message code="label.precio"/></th>
+					<th scope="col"><spring:message code="label.precio"/></th>
 					
-					<th><spring:message code="label.nombreFoto"/></th>
+					<th scope="col"><spring:message code="label.nombreFoto"/></th>
 					
-					<th><spring:message code="label.tipo"/></th>
+					<th scope="col"><spring:message code="label.tipo"/></th>
 					
-					<th width="10%">&nbsp;</th>
+					<th scope="col">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -168,13 +166,13 @@ function mostrarConfirm(message) {
 			<br>
 			<br>
 			<br>
-			<center>No hay platos que mostrar...</center>
+			<div class="text-center">No hay platos que mostrar...</div>
 		</c:if>
 
 		<div class="row">
 			<div class="col-md-12">
 				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#nuevoFormulario"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Nuevo</button>
-				<button type="button" class="btn btn-success btn-sm"><i class="fas fa-search"></i> &nbsp;&nbsp;Buscar</button>
+				<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#ventanaBuscar"><i class="fas fa-search"></i> &nbsp;&nbsp;Buscar</button>
 			</div>
 		</div>
 
@@ -184,75 +182,76 @@ function mostrarConfirm(message) {
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Nueva plato</h5>
+      <div class="modal-header border-bottom-0" style="background-color: #e9ecef; color: #6c757d">
+        <span class="modal-title" id="exampleModalLabel"><i class="fas fa-plus-circle fa-lg pr-1"></i><i class="fas fa-cube fa-lg pr-2"></i>Nuevo plato</span>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-      <div class="row">
-		<div class="col-md-1">&nbsp;</div>
-		<div class="col-md-10">
-		<!-- Extended default form grid -->
+      <div class="modal-body" style="color: #6c757d">
 		<form:form modelAttribute="plato" action='insertarPlato.do' method="post">
-			<!-- Grid row -->
-			<div class="form-row">
 
-    		
-					<!-- Grid row -->
-					<div class="form-row">
-						<!-- Default input -->
-						<div class="form-group col-md-12">
-							<label for="nombre"><spring:message code="label.nombre"/></label> <form:input path="nombre" class="form-control"/>
-						</div>
-					</div>
-					<!-- Grid row -->
-					
-					<!-- Grid row -->
-					<div class="form-row">
-						<!-- Default input -->
-						<div class="form-group col-md-12">
-							<label for="precio"><spring:message code="label.precio"/></label> <form:input path="precio" class="form-control"/>
-						</div>
-					</div>
-					<!-- Grid row -->
-					
-					<!-- Grid row -->
-					<div class="form-row">
-						<!-- Default input -->
-						<div class="form-group col-md-12">
-							<label for="nombreFoto"><spring:message code="label.nombreFoto"/></label> <form:input path="nombreFoto" class="form-control"/>
-						</div>
-					</div>
-					<!-- Grid row -->
-					
-					<!-- Grid row -->
-					<div class="form-row">
-						<!-- Default input -->
-						<div class="form-group col-md-12">
-							<label for="tipo"><spring:message code="label.tipo"/></label> <form:input path="tipo" class="form-control"/>
-						</div>
-					</div>
-					<!-- Grid row -->
-					
+			<div class="form-group">
+				<label for="nombre"><spring:message code="label.nombre"/></label> <form:input path="nombre" class="form-control"/>
+			</div>
 
-			<br>
+			<div class="form-group">
+				<label for="precio"><spring:message code="label.precio"/></label> <form:input path="precio" class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label for="nombreFoto"><spring:message code="label.nombreFoto"/></label> <form:input path="nombreFoto" class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label for="tipo"><spring:message code="label.tipo"/></label> <form:input path="tipo" class="form-control"/>
+			</div>
 
 
-		<!-- Extended default form grid -->
-		</div>
-		<div class="col-md-1">&nbsp;</div>
-		</div>
-      </div>
+		  <br>	
+		
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancelar</button>
         <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> &nbsp;&nbsp;Guardar</button>
       </div>
-
+      
       </form:form>
     </div>
   </div>
 </div>
+</div>
 
 
+<!-- Modal Busqueda -->
+<div class="modal fade" id="ventanaBuscar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0" style="background-color: #e9ecef; color: #6c757d">
+        <span class="modal-title" id="exampleModalLabel"><i class="fas fas fa-search fa-lg pr-1"></i><i class="fas fa-cube fa-lg pr-2"></i>Buscar Constante</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: #6c757d">
+		<form:form modelAttribute="plato" action='buscarPlatos.do' method="post" id="formularioBuscar">
+			<div class="form-group">
+				<label for="nombre">Nombre</label> <form:input path="nombre" class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label for="tipo">Tipo</label> <form:input path="tipo" class="form-control"/>
+			</div>
+			
+			<br>
+			
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancelar</button>
+        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> &nbsp;&nbsp;Buscar</button>
+      </div>
+      
+      </form:form>
+    </div>
+  </div>
+</div>
+</div>

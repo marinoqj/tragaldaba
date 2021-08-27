@@ -1,30 +1,37 @@
 package es.golemdr.tragaldaba.ext.utils.tools;
 
+import java.security.SecureRandom;
+
+
 public class GeneradorCodigo {
 	
+	private static SecureRandom aleatorio; 
+	
+	static {
+		aleatorio = new SecureRandom();
+	}
+	
+	private GeneradorCodigo() {
+		throw new IllegalStateException("GeneradorCodigo class");
+	}
+	
 	public static char mayusculaAlAzar(){
-		
-		int aleatorio = (int)Math.round(Math.random()* 25 + 65);		
-		char aux = (char)(aleatorio);
-		
-			
-		return aux;
+
+		return (char)(aleatorio.nextInt(25) + 65);
 		
 		
 	}
 	
 	public static int numeroAlAzar(){
 		
-		int aleatorio = (int)(Math.random()* 8)+1;
-		
-		return aleatorio;
+		return aleatorio.nextInt(8) + 1;
 		
 	}
 
 	
 	public static String generaCodigoExcepcion(){
 		
-		StringBuffer resultado = new StringBuffer();
+		StringBuilder resultado = new StringBuilder();
 		
 		// Generamos un ticket con el formato AA99AA99		
 		resultado.append(mayusculaAlAzar());

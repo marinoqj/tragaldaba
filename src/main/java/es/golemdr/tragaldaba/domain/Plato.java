@@ -3,6 +3,8 @@ package es.golemdr.tragaldaba.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,9 +15,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "platos")
-public class Plato {
+@Table(name="platos")
+public class Plato implements Serializable{
 
+
+	private static final long serialVersionUID = 7539528492813349836L;
 	private Long idPlato;
 	private String nombre;
 	private Double precio;

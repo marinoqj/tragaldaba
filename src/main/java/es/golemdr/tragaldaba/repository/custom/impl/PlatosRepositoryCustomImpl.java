@@ -11,45 +11,41 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
-import es.golemdr.tragaldaba.domain.Constante;
+import es.golemdr.tragaldaba.domain.Plato;
 import es.golemdr.tragaldaba.ext.utils.paginacion.PaginacionBean;
-import es.golemdr.tragaldaba.repository.custom.ConstantesRepositoryCustom;
+import es.golemdr.tragaldaba.repository.custom.PlatosRepositoryCustom;
 
 
 
 
-public class ConstantesRepositoryCustomImpl implements ConstantesRepositoryCustom{
+public class PlatosRepositoryCustomImpl implements PlatosRepositoryCustom{
 	
     @PersistenceContext
     private EntityManager em;
 
 	@Transactional
-	public List<Constante> findConstantes(Constante filtro, PaginacionBean paginacion) {
+	public List<Plato> findPlatos(Plato filtro, PaginacionBean paginacion) {
 		
-		List<Constante> resultado = null;
+		List<Plato> resultado = null;
 		Predicate condition = null;
 		
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-		CriteriaQuery<Constante> query = criteriaBuilder.createQuery(Constante.class);
-		Root<Constante> constante = query.from(Constante.class);		
+		CriteriaQuery<Plato> query = criteriaBuilder.createQuery(Plato.class);
+		Root<Plato> plato = query.from(Plato.class);		
 
 		List<Predicate> predicates = new ArrayList<>();
-		if(filtro.getFamilia() != null){
-		    condition = criteriaBuilder.like(constante.<String>get("familia"),"%"+filtro.getFamilia()+"%");
+		if(filtro.getNombre() != null){
+		    condition = criteriaBuilder.like(plato.<String>get("nombre"),"%"+filtro.getNombre()+"%");
 		    predicates.add(condition);
 		}
-		if(filtro.getAtributo() != null){
-		    condition = criteriaBuilder.like(constante.<String>get("atributo"),"%"+filtro.getAtributo()+"%");
-		    predicates.add(condition);
-		}		
-		if(filtro.getLiteral() != null){
-		    condition = criteriaBuilder.like(constante.<String>get("literal"),"%"+filtro.getLiteral()+"%");
+		if(filtro.getTipo() != null && filtro.getTipo() > 0){
+		    condition = criteriaBuilder.equal(plato.<Long>get("tipo"),filtro.getTipo());
 		    predicates.add(condition);
 		}		
 		
 		
 		// Devuelve solo los resultados que concidan (parcialmente - por los comodines) con TODOS los elementos del filtro
-		query.select(constante).where(criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])));
+		query.select(plato).where(criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])));
 		
 		/**
 		 * Devuelve solo los resultados que concidan (parcialmente - por los comodines) con ALGUNO los elementos del filtro

@@ -94,15 +94,17 @@ $(document).ready(function(){
 
 
 <div class="row">
-	<div class="col-md-8"></div>
+	<div class="col-md-8">&nbsp;</div>
 
-	<c:if test="${hayFiltro eq false}">
-		<mistags:paginacion accion="listadoConstantes" />
-	</c:if>
-
-	<c:if test="${hayFiltro eq true}">
-		<mistags:paginacion accion="listadoConstantesFiltrado" />
-	</c:if>
+	<div class="col-md-4">
+		<c:if test="${hayFiltro eq false}">
+			<mistags:paginacion accion="listadoConstantes" />
+		</c:if>
+	
+		<c:if test="${hayFiltro eq true}">
+			<mistags:paginacion accion="listadoConstantesFiltrado" />
+		</c:if>
+	</div>
 </div>
 
 
@@ -113,17 +115,17 @@ $(document).ready(function(){
 		<thead class="blue lighten-4">
 			<tr class="bg-light">
 	    		
-					<th><spring:message code="label.familia"/></th>
+					<th scope="col"><spring:message code="label.familia"/></th>
 					
-					<th><spring:message code="label.atributo"/></th>
+					<th scope="col"><spring:message code="label.atributo"/></th>
 					
-					<th><spring:message code="label.literal"/></th>
+					<th scope="col"><spring:message code="label.literal"/></th>
 					
-					<th><spring:message code="label.valor"/></th>
+					<th scope="col"><div class="text-right"><spring:message code="label.valor"/></div></th>
 					
-					<th><spring:message code="label.activa"/></th>
+					<th scope="col" scope="col"><div class="text-center"><spring:message code="label.activa"/></div></th>
 					
-					<th>&nbsp;</th>
+					<th scope="col">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -180,7 +182,7 @@ $(document).ready(function(){
 			<br>
 			<br>
 			<br>
-			<center>No hay constantes que mostrar...</center>
+			<div class="text-center">No hay constantes que mostrar...</div>
 		</c:if>
 
 		<div class="row">

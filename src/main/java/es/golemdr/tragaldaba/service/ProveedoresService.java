@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import es.golemdr.tragaldaba.domain.Proveedor;
+import es.golemdr.tragaldaba.ext.utils.paginacion.PaginacionBean;
 import es.golemdr.tragaldaba.repository.ProveedoresRepository;
 
 @Service
@@ -25,9 +26,11 @@ public class ProveedoresService {
 		}
 
 
-		public List<Proveedor> getProveedores(int inicio, int elementosXpagina) {
+		public List<Proveedor> getProveedores(PaginacionBean paginacionBean) {
 
-			Pageable paginacion = PageRequest.of(inicio,elementosXpagina);
+			Pageable paginacion = PageRequest.of(paginacionBean.getInicio(),paginacionBean.getElementosXpagina());
+
+			paginacionBean.setTotalRegistros(getTotalProveedores());
 
 			return proveedoresRepository.findAll(paginacion).getContent();
 
@@ -58,6 +61,18 @@ public class ProveedoresService {
 		public void borrarProveedor(Long idProveedor) {
 
 			proveedoresRepository.deleteById(idProveedor);
+
+		}
+
+		public List<Proveedor> findProveedoresByExample(Proveedor proveedor, PaginacionBean paginacion) {
+
+			return proveedoresRepository.findProveedores(proveedor, paginacion);
+
+		}
+
+		public int countProveedoresByExample(Proveedor proveedor) {
+
+			return proveedoresRepository.findProveedores(proveedor, null).size();
 
 		}
 

@@ -1,4 +1,5 @@
 package es.golemdr.tragaldaba.config;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -13,11 +14,17 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -25,15 +32,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import org.springframework.web.util.UrlPathHelper;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
@@ -41,10 +44,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.golemdr.tragaldaba.controller.constantes.UrlConstants;
 import es.golemdr.tragaldaba.ext.exceptions.resolver.CustomExceptionResolver;
-
-
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-import static com.fasterxml.jackson.databind.MapperFeature.SORT_PROPERTIES_ALPHABETICALLY;
 
 
 
@@ -94,14 +93,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		
 	}
 	
-	//----------------------------- Añado todo lo que sigue
-	
+
 
     @Bean
     public TilesConfigurer tilesConfigurer() {
         TilesConfigurer tilesConfigurer = new TilesConfigurer();
-        tilesConfigurer.setDefinitions(
-          new String[] { "classpath:tiles.xml" });
+        tilesConfigurer.setDefinitions("classpath:tiles.xml");
         tilesConfigurer.setCheckRefresh(true);
         
         return tilesConfigurer;
@@ -123,12 +120,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	
 	// Si definimos un locale por defecto el usuario tendrá que cambiar de idioma en caso de que esté disponible.
 	// Si no lo definimos y el idioma está disponible, el usuario entra directamente en su idioma
-//	@Bean
-//	public LocaleResolver localeResolver() {
-//	    SessionLocaleResolver slr = new SessionLocaleResolver();
-//	    slr.setDefaultLocale(new Locale("es"));
-//	    return slr;
-//	}
+	@Bean
+	public LocaleResolver localeResolver() {
+	    SessionLocaleResolver slr = new SessionLocaleResolver();
+	    slr.setDefaultLocale(new Locale("es"));
+	    return slr;
+	}
 	
     @Bean  
     public MessageSource messageSource() {  
@@ -186,10 +183,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	      return em;
 	}
     
-    @Bean
+    @Bean    
 	public DataSource dataSource(){
 	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	    dataSource.setDriverClassName(env.getProperty("datasource.driver"));
+	    
+	    String driver = env.getProperty("datasource.driver");
+	    
+	    if(driver != null) {
+	    	dataSource.setDriverClassName(driver);	
+	    }
+
 	    dataSource.setUrl(env.getProperty("datasource.url"));
 	    dataSource.setUsername(env.getProperty("datasource.username"));
 	    dataSource.setPassword(env.getProperty("datasource.password"));

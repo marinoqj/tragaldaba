@@ -2,12 +2,12 @@ package es.golemdr.tragaldaba.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 
 import es.golemdr.tragaldaba.domain.Constante;
 import es.golemdr.tragaldaba.ext.utils.paginacion.PaginacionBean;
@@ -54,7 +54,15 @@ public class ConstantesService {
 
 		public Constante getById(Long idConstante) {
 
-			return constantesRepository.findById(idConstante).get();
+			Constante resultado = null;
+			
+			Optional<Constante> constante = constantesRepository.findById(idConstante);
+			
+			if(constante.isPresent()) {
+				resultado = constante.get();
+			}
+
+			return resultado;
 
 		}
 

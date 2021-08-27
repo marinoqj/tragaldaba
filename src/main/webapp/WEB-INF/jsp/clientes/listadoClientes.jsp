@@ -117,17 +117,17 @@ function mostrarConfirm(message) {
 		<thead class="blue lighten-4">
 			<tr class="bg-light">
 	    		
-					<th><spring:message code="label.nombre"/></th>
+					<th scope="col"><spring:message code="label.nombre"/></th>
 					
-					<th><spring:message code="label.apellidos"/></th>
+					<th scope="col"><spring:message code="label.apellidos"/></th>
 					
-					<th><spring:message code="label.telefono"/></th>
+					<th scope="col"><spring:message code="label.telefono"/></th>
 					
-					<th><spring:message code="label.dni"/></th>
+					<th scope="col"><spring:message code="label.dni"/></th>
 					
-					<th><spring:message code="label.direccion"/></th>
+					<th scope="col"><spring:message code="label.direccion"/></th>
 					
-					<th width="10%">&nbsp;</th>
+					<th scope="col">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -172,7 +172,7 @@ function mostrarConfirm(message) {
 			<br>
 			<br>
 			<br>
-			<center>No hay clientes que mostrar...</center>
+			<div class="text-center">No hay clientes que mostrar...</div>
 		</c:if>
 
 		<div class="row">
@@ -184,12 +184,11 @@ function mostrarConfirm(message) {
 
 
 <!-- Modal -->
-<div class="modal fade" id="nuevoFormulario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="nuevoFormulario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Nueva cliente</h5>
+        <h5 class="modal-title">Nuevo cliente</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 import es.golemdr.tragaldaba.controller.constantes.ForwardConstants;
 import es.golemdr.tragaldaba.controller.constantes.UrlConstants;
 import es.golemdr.tragaldaba.domain.Constante;

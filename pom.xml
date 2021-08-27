@@ -11,12 +11,54 @@
 	
 
 	<properties>
+		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding> 
 		<java-version>1.8</java-version>
 		<org.springframework-version>5.2.8.RELEASE</org.springframework-version>
 		<spring-security-version>5.2.6.RELEASE</spring-security-version>
 		<org.aspectj-version>1.8.1</org.aspectj-version>
 		<hibernate.version>5.2.11.Final</hibernate.version>
-		<c3p0.version>0.9.5.2</c3p0.version>	
+		<c3p0.version>0.9.5.2</c3p0.version>
+		<!--  This format is used by SonarQube. If you need another format see "buildnumber-maven-plugin" -->
+		<maven.build.timestamp.format>MM.yyyy</maven.build.timestamp.format>
+		<yearMonth>${maven.build.timestamp}</yearMonth>    
+		<!-- ************************-->
+		<!-- Sonar/Reporting settings -->
+		<!-- ************************-->
+		<!-- Sonar/Jacoco integration. Note that these properties need to be defined outside the "coverage" profile
+		because we want to be to able to execute mvn sonar:sonar without passing a profile -->
+		<!-- Tells Sonar to use jacoco for coverage results -->
+		<sonar.projectKey>es.golemdr.tragaldaba:tragaldaba</sonar.projectKey>
+		<sonar.projectName>tragaldaba</sonar.projectName>
+		<sonar.projectVersion>${yearMonth}</sonar.projectVersion>
+		<sonar.language>java</sonar.language>
+		<sonar.sourceEncoding>ISO-8859-1</sonar.sourceEncoding>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<!-- Jacoco version to use -->
+		<jacoco.version>0.7.2.201409121644</jacoco.version>
+		<!-- The Sonar Jacoco Listener for JUnit to extract coverage details per test -->
+		<sonar-jacoco-listeners.version>1.4</sonar-jacoco-listeners.version>
+		<!-- Don't let Sonar execute tests. We will ask it to Maven 'sonar.dynamicAnalysis' is deprecated since version 4.3 and should no longer be used. -->
+		<!-- <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis> -->
+		<!-- The system property jacoco.outputDir needs to be override on the command line
+		    with an absolute path if you want to merge results from all modules.
+		    Example in a Jenkisn build where ${WORKSPACE} is defined and your project in the root directory of the workspace :
+		    mvn clean install -Prun-its,coverage -Djacoco.outputDir=${WORKSPACE}/target
+		    Note that unfortunately using the following does not work because of
+		    http://jira.codehaus.org/browse/SONAR-3427:
+		<jacoco.outputDir>${session.executionRootDirectory}/target/</jacoco.outputDir>
+		-->
+		<jacoco.outputDir>${project.build.directory}</jacoco.outputDir>
+		<!-- Jacoco output file for UTs -->
+		<jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
+		<!-- Tells Sonar where the Jacoco coverage result file is located for Unit Tests -->
+		<sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
+		<!-- Jacoco output file for ITs -->
+		<jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
+		<!-- Tells Sonar where the Jacoco coverage result file is located for Integration Tests -->
+		<sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
+		<!-- <sonar.junit.reportsPath>${project.build.directory}/surefire-reports/</sonar.junit.reportsPath> -->
+		<!-- <sonar.tests>src/test/java</sonar.tests> -->
+		<!-- === END of Sonar/Reporting settings === -->
 	</properties>
 
 	<dependencies>
@@ -208,11 +250,6 @@
 		    <artifactId>jakarta.persistence-api</artifactId>
 		    <version>2.2.3</version>
 		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.21</version>
-		</dependency>
 		<!-- Hibernate ORM -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -226,12 +263,13 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 		
-		<!-- Driver de Oracle -->
+		<!-- Driver de MySQL -->
 		<dependency>
-		    <groupId>com.oracle.database.jdbc</groupId>
-		    <artifactId>ojdbc8</artifactId>
-		    <version>12.2.0.1</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.21</version>
 		</dependency>	
+
 		
 		<!-- API, java.xml.bind module -->
 		<dependency>
@@ -262,47 +300,188 @@
 		    <artifactId>pdfbox</artifactId>
 		    <version>2.0.22</version>
 		</dependency>
-							
 		
+		<!-- Excel -->	
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.14</version>
+		</dependency>	
+		
+							
+		<dependency>
+		    <groupId>commons-lang</groupId>
+		    <artifactId>commons-lang</artifactId>
+		    <version>2.5</version>
+		</dependency>
+
+
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.14</version>
+		</dependency>	
+     	<dependency>
+             <groupId>net.sf.jasperreports</groupId>
+             <artifactId>jasperreports</artifactId>
+             <version>6.17.0</version>
+        </dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-fonts</artifactId>
+			<version>6.0.0</version>			
+		</dependency>        
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.8.7</version>
+		</dependency>        
+		<!-- Fin Jasper -->		
+
+		<!-- Mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>javax.mail-api</artifactId>
+		    <version>1.5.5</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.5.5</version>
+		</dependency>		
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>2.3.2</version>
+		</dependency>
 		
 	</dependencies>
 
 	<!-- Para generar el WAR para un entorno u otro con profile -->	
 	<profiles>
 		<profile>
-		  <id>desa</id>
-      <activation>
-          <activeByDefault>true</activeByDefault>
-      <property>
-          <name>desa</name>
-      </property>                
-      </activation>		  
-		  <properties>
-		    <entorno>entorno-desa</entorno>
-		    <modulo.entorno>DESA</modulo.entorno>
-		    <activatedProperties>dev</activatedProperties>
-		  </properties>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<environment.properties>application-local.properties</environment.properties>
+				<environment.name>LOCAL</environment.name>
+			</properties>
 		</profile>
-	
 		<profile>
-		  <id>prod</id>
-      <activation>
-          <activeByDefault>false</activeByDefault>
-      <property>
-          <name>prod</name>
-      </property>          
-      </activation>		  	  
-		  <properties>
-		    <entorno>entorno-prod</entorno>
-		    <modulo.entorno>PROD</modulo.entorno>
-		    <activatedProperties>prod</activatedProperties>
-		  </properties>
-		</profile>		
+			<id>dev-one</id>
+			<properties>
+				<environment.properties>application-dev-one.properties</environment.properties>
+				<environment.name>DEV-ONE</environment.name>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev-two</id>
+			<properties>
+				<environment.properties>application-dev-two.properties</environment.properties>
+				<environment.name>DEV-TWO</environment.name>
+			</properties>
+		</profile>					
+		<profile>
+			<id>prod</id>
+			<properties>
+				<environment.properties>application-prod.properties</environment.properties>
+				<environment.name>PROD</environment.name>
+			</properties>
+		</profile>			
+
+
+		<!-- coverage -->
+		<profile>
+		    <id>coverage</id>
+		    <build>
+		        <plugins>
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-surefire-plugin</artifactId>
+		                <configuration>
+		                    <argLine>${jacoco.agent.ut.arg}</argLine>
+		                    <!-- Specific to generate mapping between tests and covered code -->
+		                    <properties>
+		                        <property>
+		                            <name>listener</name>
+		                            <value>org.sonar.java.jacoco.JUnitListener</value>
+		                        </property>
+		                    </properties>
+		                    <!-- test failure ignore -->
+		                    <testFailureIgnore>true</testFailureIgnore>
+		                </configuration>
+		            </plugin>
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-failsafe-plugin</artifactId>
+		                <configuration>
+		                    <argLine>-Xmx1024m -XX:MaxPermSize=256m ${jacoco.agent.it.arg}
+		                    </argLine>
+		                    <!-- Specific to generate mapping between tests and covered code -->
+		                    <properties>
+		                        <property>
+		                            <name>listener</name>
+		                            <value>org.sonar.java.jacoco.JUnitListener</value>
+		                        </property>
+		                    </properties>
+		                    <!-- Let's put failsafe reports with surefire to have access to tests 
+		                        failures/success reports in sonar -->
+		                    <reportsDirectory>${project.build.directory}/surefire-reports
+		                    </reportsDirectory>
+		                </configuration>
+		            </plugin>
+		            <plugin>
+		                <groupId>org.jacoco</groupId>
+		                <artifactId>jacoco-maven-plugin</artifactId>
+		                <version>${jacoco.version}</version>
+		                <executions>
+		                    <!-- Prepares a variable, jacoco.agent.ut.arg, that contains the info 
+		                        to be passed to the JVM hosting the code being tested. -->
+		                    <execution>
+		                        <id>prepare-ut-agent</id>
+		                        <phase>process-test-classes</phase>
+		                        <goals>
+		                            <goal>prepare-agent</goal>
+		                        </goals>
+		                        <configuration>
+		                            <destFile>${sonar.jacoco.reportPath}</destFile>
+		                            <propertyName>jacoco.agent.ut.arg</propertyName>
+		                            <append>true</append>
+		                        </configuration>
+		                    </execution>
+		                    <!-- Prepares a variable, jacoco.agent.it.arg, that contains the info 
+		                        to be passed to the JVM hosting the code being tested. -->
+		                    <execution>
+		                        <id>prepare-it-agent</id>
+		                        <phase>pre-integration-test</phase>
+		                        <goals>
+		                            <goal>prepare-agent</goal>
+		                        </goals>
+		                        <configuration>
+		                            <destFile>${sonar.jacoco.itReportPath}</destFile>
+		                            <propertyName>jacoco.agent.it.arg</propertyName>
+		                            <append>true</append>
+		                        </configuration>
+		                    </execution>
+		                </executions>
+		            </plugin>		            
+		        </plugins>
+		    </build>
+		    <dependencies>
+		        <dependency>
+		            <groupId>org.codehaus.sonar-plugins.java</groupId>
+		            <artifactId>sonar-jacoco-listeners</artifactId>
+		            <version>${sonar-jacoco-listeners.version}</version>
+		            <scope>test</scope>
+		        </dependency>
+		    </dependencies>
+		</profile>
 	</profiles>	
 
 	<build>
-		<finalName>${project.name}-${project.version}-${modulo.entorno}</finalName>
-		<pluginManagement>
+		<finalName>${project.name}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -310,16 +489,59 @@
 				<version>3.7.0</version>
 				<configuration>
 					<source>${java-version}</source>
-					<target>${java-version}</target>
+					<target>${java-version}</target>					
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>copy-application-properties</id>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<delete file="src/main/resources/application.properties"/>
+								<copy file="src/main/resources/${environment.properties}" tofile="src/main/resources/application.properties"/>
+							</target>
+						</configuration>
+						<goals>
+							<goal>
+								run
+							</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>reset-application-properties</id>
+						<phase>verify</phase>
+						<configuration>
+							<target>
+								<delete file="src/main/resources/application.properties"/>
+								<copy file="src/main/resources/application-local.properties" tofile="src/main/resources/application.properties"/>
+							</target>
+						</configuration>
+						<goals>
+							<goal>
+								run
+							</goal>
+						</goals>
+					</execution>					
+				</executions>			
+			</plugin>
+			<plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.0.2155</version>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -348,37 +570,38 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.11</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjrt</artifactId>
-						<version>${org.aspectj-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjtools</artifactId>
-						<version>${org.aspectj-version}</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>       <!-- weave all main classes -->
-							<goal>test-compile</goal>  <!-- weave all test classes -->
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<outxml>true</outxml>
-					<complianceLevel>${java-version}</complianceLevel>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-				</configuration>
-			</plugin>
+			<!-- Solo funciona hasta JDK 8 - Evaluar impacto en tests -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>aspectj-maven-plugin</artifactId> -->
+<!-- 				<version>1.11</version> -->
+<!-- 				<dependencies> -->
+<!-- 					<dependency> -->
+<!-- 						<groupId>org.aspectj</groupId> -->
+<!-- 						<artifactId>aspectjrt</artifactId> -->
+<!-- 						<version>${org.aspectj-version}</version> -->
+<!-- 					</dependency> -->
+<!-- 					<dependency> -->
+<!-- 						<groupId>org.aspectj</groupId> -->
+<!-- 						<artifactId>aspectjtools</artifactId> -->
+<!-- 						<version>${org.aspectj-version}</version> -->
+<!-- 					</dependency> -->
+<!-- 				</dependencies> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>compile</goal>       weave all main classes -->
+<!-- 							<goal>test-compile</goal>  weave all test classes -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 				<configuration> -->
+<!-- 					<outxml>true</outxml> -->
+<!-- 					<complianceLevel>${java-version}</complianceLevel> -->
+<!-- 					<source>${java-version}</source> -->
+<!-- 					<target>${java-version}</target> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 			<plugin>
 			    <groupId>org.eclipse.m2e</groupId>
 			    <artifactId>lifecycle-mapping</artifactId>
@@ -412,16 +635,37 @@
 						<contextPath>/${project.artifactId}</contextPath>
 					</webApp>
 				</configuration>
-			</plugin>
+			</plugin>			
+			 <!--  Para generar la imagen de Docker -->			
+<!--              <plugin> -->
+<!-- 			  <groupId>com.spotify</groupId> -->
+<!-- 			  <artifactId>dockerfile-maven-plugin</artifactId> -->
+<!-- 			  <version>1.4.13</version> -->
+<!-- 			  <executions> -->
+<!-- 			    <execution> -->
+<!-- 			      <id>default</id> -->
+<!-- 			      <goals> -->
+<!-- 			        <goal>build</goal> -->
+<!-- 			        <goal>push</goal> -->
+<!-- 			      </goals> -->
+<!-- 			    </execution> -->
+<!-- 			  </executions> -->
+<!-- 			  <configuration> -->
+<!-- 			  	<useMavenSettingsForAuth>true</useMavenSettingsForAuth> -->
+<!--                 <username>marinoqj</username> -->
+<!--                 <password>8e667415-0922-4ec0-b06b-2896c4c5aa58</password> -->
+<!-- 			    <repository>marinoqj/tragaldaba</repository> -->
+<!-- 			    <tag>${project.version}</tag> -->
+<!-- 			  </configuration> -->
+<!-- 			</plugin>			 -->
 		</plugins>
-		</pluginManagement>
 		<!-- Para incluir dinamicamente propiedades de Maven -->
-		<resources>
-			 <resource>
-			   <directory>src/main/resources</directory>
-			   <filtering>true</filtering>				  		   		 
-			 </resource>
-		</resources>		
+<!-- 		<resources> -->
+<!-- 			 <resource> -->
+<!-- 			   <directory>src/main/resources</directory> -->
+<!-- 			   <filtering>true</filtering>				  		   		  -->
+<!-- 			 </resource> -->
+<!-- 		</resources>		 -->
 		
 	</build>
 </project>

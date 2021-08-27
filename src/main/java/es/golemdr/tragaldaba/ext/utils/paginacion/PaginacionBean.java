@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class PaginacionBean implements Serializable{
 
+
+	private static final long serialVersionUID = -7785583790749171641L;
 	private int inicio = 0;
 	private int elementosXpagina = 5;
 	private int totalRegistros;
@@ -36,20 +38,9 @@ public class PaginacionBean implements Serializable{
 		
 		double resultado = Math.ceil(dTotalRegistros / dElementosXPagina);		
 		
-		return Double.valueOf(resultado).intValue();
+		return (int)resultado;
 		
 	}
 
-	public int getFin(){
-		
-		return this.inicio + this.elementosXpagina;
-	}
-	
-	public int getPaginaActual(){
-		
-		Double paginaActual_Double = new Double((this.inicio + this.elementosXpagina - 1)/this.elementosXpagina);
-		
-		return paginaActual_Double.intValue();
-	}
 	
 }

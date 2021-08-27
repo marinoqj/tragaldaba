@@ -1,9 +1,8 @@
 package es.golemdr.tragaldaba.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +12,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "roles")
-public class Rol {
+@Table(name="roles")
+public class Rol implements Serializable{
 
+	private static final long serialVersionUID = -8085723214863186284L;
 	private Long idRol;
 	private String nombreRol;
 

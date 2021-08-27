@@ -2,6 +2,10 @@ package es.golemdr.tragaldaba.controller.constantes;
 
 
 public class UrlConstants {
+	
+	private UrlConstants() {
+		throw new IllegalStateException("ForwardConstants class");
+	}
 
 	public static final String SUFIJO_PAGINACION = 	"{inicio}.do";
 	public static final String URL_LOGIN = "/login.do";
@@ -45,8 +49,6 @@ public class UrlConstants {
 	public static final String URL_EDITAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/editarConstante.do";
 	public static final String URL_ACTUALIZAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/actualizarConstante.do";
 	public static final String URL_BORRAR_CONSTANTE = SEGURIDAD_CONSTANTES + "/borrarConstante.do";
-	
-	public static final String URL_VER_BUSQUEDA_CONSTANTE = SEGURIDAD_CONSTANTES + "/verBusquedaConstante.do";
 	public static final String URL_BUSCAR_CONSTANTES = SEGURIDAD_CONSTANTES + "/buscarConstantes.do";
 
 
@@ -64,23 +66,27 @@ public class UrlConstants {
 	
 
 	// Platos
-	public static final String URL_LISTADO_PLATOS = SEGURIDAD_PLATOS + "/listadoPlatos" + SUFIJO_PAGINACION;	
+	public static final String URL_LISTADO_PLATOS = SEGURIDAD_PLATOS + "/listadoPlatos" + SUFIJO_PAGINACION;
+	public static final String URL_LISTADO_PLATOS_FILTRADO = SEGURIDAD_PLATOS + "/listadoPlatosFiltrado" + SUFIJO_PAGINACION;	
 	public static final String URL_ALTA_PLATO = SEGURIDAD_PLATOS + "/altaPlato.do";
 	public static final String URL_INSERTAR_PLATO = SEGURIDAD_PLATOS + "/insertarPlato.do";
 	public static final String URL_EDITAR_PLATO = SEGURIDAD_PLATOS + "/editarPlato.do";
 	public static final String URL_ACTUALIZAR_PLATO = SEGURIDAD_PLATOS + "/actualizarPlato.do";
 	public static final String URL_BORRAR_PLATO = SEGURIDAD_PLATOS + "/borrarPlato.do";
+	public static final String URL_BUSCAR_PLATOS = SEGURIDAD_PLATOS + "/buscarPlatos.do";
 
 
 	
 
 	// Proveedores
-	public static final String URL_LISTADO_PROVEEDORES = SEGURIDAD_PROVEEDORES + "/listadoProveedores" + SUFIJO_PAGINACION;	
+	public static final String URL_LISTADO_PROVEEDORES = SEGURIDAD_PROVEEDORES + "/listadoProveedores" + SUFIJO_PAGINACION;
+	public static final String URL_LISTADO_PROVEEDORES_FILTRADO = SEGURIDAD_PROVEEDORES + "/listadoProveedoresFiltrado" + SUFIJO_PAGINACION;
 	public static final String URL_ALTA_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/altaProveedor.do";
 	public static final String URL_INSERTAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/insertarProveedor.do";
 	public static final String URL_EDITAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/editarProveedor.do";
 	public static final String URL_ACTUALIZAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/actualizarProveedor.do";
 	public static final String URL_BORRAR_PROVEEDOR = SEGURIDAD_PROVEEDORES + "/borrarProveedor.do";
+    public static final String URL_BUSCAR_PROVEEDORES = SEGURIDAD_PROVEEDORES + "/buscarProveedores.do";
 
 	// Tragaldaba 
 	public static final String URL_REALIZAR_PEDIDO =  "/realizarPedido.do";

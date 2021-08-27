@@ -117,19 +117,19 @@ function mostrarConfirm(message) {
 		<thead class="blue lighten-4">
 			<tr class="bg-light">
 	    		
-					<th><spring:message code="label.numArticulos"/></th>
+					<th scope="col"><spring:message code="label.numArticulos"/></th>
 					
-					<th><spring:message code="label.total"/></th>
+					<th scope="col"><spring:message code="label.total"/></th>
 					
-					<th><spring:message code="label.fecha"/></th>
+					<th scope="col"><spring:message code="label.fecha"/></th>
 					
-					<th><spring:message code="label.tipoEntrega"/></th>
+					<th scope="col"><spring:message code="label.tipoEntrega"/></th>
 					
-					<th><spring:message code="label.idCliente"/></th>
+					<th scope="col"><spring:message code="label.idCliente"/></th>
 					
-					<th><spring:message code="label.idProveedor"/></th>
+					<th scope="col"><spring:message code="label.idProveedor"/></th>
 					
-					<th width="10%">&nbsp;</th>
+					<th scope="col">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -176,7 +176,7 @@ function mostrarConfirm(message) {
 			<br>
 			<br>
 			<br>
-			<center>No hay pedidos que mostrar...</center>
+			<div class="text-center">No hay pedidos que mostrar...</div>
 		</c:if>
 
 		<div class="row">
