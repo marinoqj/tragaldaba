@@ -1,5 +1,8 @@
 package es.golemdr.tragaldaba.config;
 
+import javax.servlet.Filter;
+
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -25,10 +28,10 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		return new String[] { "/" };
 	}
 
-//	@Override
-//	protected Filter[] getServletFilters() {
-//		return new Filter[] { new DelegatingFilterProxy("csrfFilter") };
-//	}
+	@Override
+	protected Filter[] getServletFilters() {
+		return new Filter[] { new DelegatingFilterProxy("csrfFilter") };
+	}
 	
 	
 
