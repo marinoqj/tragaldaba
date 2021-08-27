@@ -37,7 +37,7 @@
 	</header>
 
 	<main>
-		<div class="container" style="min-height:90vh">
+		<div id="contenedor-general" style="min-height:90vh">
 			<tiles:insertAttribute name="body" />			
 		</div>
 	</main>

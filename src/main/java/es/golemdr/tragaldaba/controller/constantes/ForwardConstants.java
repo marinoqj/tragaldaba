@@ -38,5 +38,11 @@ public class ForwardConstants {
 	public static final String RED_LISTADO_PROVEEDORES = "redirect:listadoProveedores1.do";
 	public static final String FWD_PROVEEDOR_FORM = "ProveedorForm";
 	
+	
+	
+	public static final String FWD_REALIZAR_PEDIDO = "RealizarPedido";
+	public static final String FWD_CONFIRMAR_PEDIDO = "ConfirmarPedido";
+	public static final String FWD_TERMINAR_PEDIDO = "TerminarPedido";
+	
 
 }

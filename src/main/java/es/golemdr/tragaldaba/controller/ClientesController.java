@@ -68,7 +68,6 @@ public class ClientesController {
 	public String editar(String idCliente, Map<String, Object> map) {
 
 		Cliente resultado = null;
-
 		resultado = clientesService.getById(Long.valueOf(idCliente));
 
 		map.put("modo", "actualizar");
@@ -108,8 +107,7 @@ public class ClientesController {
 		return ForwardConstants.RED_LISTADO_CLIENTES;
 
 	}
-
-
+	
 
 }
 

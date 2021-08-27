@@ -1,10 +1,3 @@
-﻿/*
-Created: 18/08/2021
-Modified: 18/08/2021
-Model: tragaldaba
-Database: MySQL 5.7
-*/
-
 
 -- Create tables section -------------------------------------------------
 

@@ -70,5 +70,20 @@ public class ClientesService {
 
 		}
 
+
+		public Cliente existeCliente(String dni) {
+			List<Cliente> listadoClientes = getClientes();
+			Cliente resultado = null;
+			
+			for(Cliente cliente : listadoClientes) {
+				if (cliente.getDni().equals(dni)) {
+					resultado = cliente;
+					break;
+				}
+			}
+			
+			return resultado;
+		}
+
 }
 

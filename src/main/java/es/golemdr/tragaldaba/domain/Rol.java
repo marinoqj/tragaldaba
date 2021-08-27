@@ -1,6 +1,5 @@
 package es.golemdr.tragaldaba.domain;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,40 +15,38 @@ import javax.persistence.Table;
 @Table(name="roles")
 public class Rol implements Serializable{
 
-
 	private static final long serialVersionUID = -8085723214863186284L;
 	private Long idRol;
 	private String nombreRol;
 
-	private List<Usuario> usuarios= new ArrayList<>(0); 
+	private List<Usuario> usuarios = new ArrayList<>(0);
 
-
-@Id
-@Column(name="ID_ROL")
-public Long getIdRol() {
+	@Id
+	@Column(name = "ID_ROL")
+	public Long getIdRol() {
 		return idRol;
 	}
+
 	public void setIdRol(Long idRol) {
 		this.idRol = idRol;
 	}
-	
-@Column(name="NOMBRE_ROL")
-public String getNombreRol() {
+
+	@Column(name = "NOMBRE_ROL")
+	public String getNombreRol() {
 		return nombreRol;
 	}
+
 	public void setNombreRol(String nombreRol) {
 		this.nombreRol = nombreRol;
 	}
-	
-@ManyToMany(fetch = FetchType.LAZY, mappedBy="roles")
-public List<Usuario> getUsuarios() {
-	return usuarios;
-}
-public void setUsuarios(List<Usuario> usuarios) {
-	this.usuarios = usuarios;
-}
-	
 
-	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
 
 }
