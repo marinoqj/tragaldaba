@@ -126,6 +126,7 @@
                 </div>
             </div>
                 <input type="hidden" id="totalPedido" name="totalPedido">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <%--                <input type="hidden" id="numPlatos" name="numPlatos">--%>
             </form>
         </div>
