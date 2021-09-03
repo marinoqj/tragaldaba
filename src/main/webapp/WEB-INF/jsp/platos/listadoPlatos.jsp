@@ -72,6 +72,7 @@ $(document).ready(function(){
 
 <form name="formulario" method="post">
 	<input type="hidden" name="idPlato"/>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 
 		<br>

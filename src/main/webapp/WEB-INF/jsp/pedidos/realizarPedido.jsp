@@ -236,7 +236,7 @@
             $('#warningModal').find('.modal-body p').html(message);
             $('#warningModal').modal('show');
         } else {
-            message = 'Se va a proceder a realizar el pedido. ¿Está deacuerdo?';
+            message = 'Se va a proceder a realizar el pedido. ¿Está de acuerdo?';
             $('#infoModal').find('.modal-body p').html(message);
             $('#infoModal').modal('show');        	
         }

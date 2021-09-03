@@ -66,7 +66,21 @@
 										<label for="tipo"><spring:message code="label.tipo"/></label> <form:input path="tipo" class="form-control"/><form:errors path="tipo" element="div" id="rojo"/>
 									</div>
 								</div>
-					
+
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="desripcion"><spring:message code="label.descripcion"/></label> <form:input path="descripcion" class="form-control"/><form:errors path="tipo" element="div" id="rojo"/>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-md-12">
+									      <div class="custom-control custom-checkbox mr-sm-2">
+									        <form:checkbox path="activo"  value="1" class="custom-control-input" id="customControlAutosizing"/>
+									        <label class="custom-control-label" for="customControlAutosizing"><spring:message code="label.activo"/></label>									        
+									      </div>										
+									</div>
+								</div>
 
 
 							<a href="./listadoPlatos1.do" class="btn btn-secondary btn-sm"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancelar</a>

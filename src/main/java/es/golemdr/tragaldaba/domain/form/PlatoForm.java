@@ -6,6 +6,8 @@ public class PlatoForm{
 	private String nombre;
 	private Double precio;
 	private String nombreFoto;
+	private String descripcion;
+	private String activo;
 	private Long tipo;
 	
 	public Long getIdPlato() {
@@ -37,6 +39,18 @@ public class PlatoForm{
 	}
 	public void setTipo(Long tipo) {
 		this.tipo = tipo;
+	}
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	public String getActivo() {
+		return activo;
+	}
+	public void setActivo(String activo) {
+		this.activo = activo;
 	}
 
 

@@ -41,7 +41,7 @@ public class ConstantesServiceTest {
 	void getConstantes() throws Exception {
 		
 		List<Constante> constantes = constantesService.getConstantes();		
-		assertTrue(!constantes.isEmpty());
+		assertNotNull(constantes);
 	}
     
     @Test
