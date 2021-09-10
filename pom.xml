@@ -15,9 +15,11 @@
 		<java-version>1.8</java-version>
 		<org.springframework-version>5.2.8.RELEASE</org.springframework-version>
 		<spring-security-version>5.2.6.RELEASE</spring-security-version>
+		<spring-data-mongodb-version>3.1.12</spring-data-mongodb-version>
 		<org.aspectj-version>1.8.1</org.aspectj-version>
 		<hibernate.version>5.2.11.Final</hibernate.version>
 		<c3p0.version>0.9.5.2</c3p0.version>
+		<org.mongodb-version>4.1.2</org.mongodb-version>
 		<!--  This format is used by SonarQube. If you need another format see "buildnumber-maven-plugin" -->
 		<maven.build.timestamp.format>MM.yyyy</maven.build.timestamp.format>
 		<yearMonth>${maven.build.timestamp}</yearMonth>    
@@ -94,7 +96,26 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring-security-version}</version>
-		</dependency>		
+		</dependency>
+		
+		<!-- Spring Data MongoDB -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>${spring-data-mongodb-version}</version>
+        </dependency>
+        
+        <!-- Driver Java para MongoDB -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>${org.mongodb-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-reactivestreams</artifactId>
+            <version>${org.mongodb-version}</version>
+        </dependency>
 
 		<!-- AspectJ -->
 		<dependency>
@@ -571,37 +592,37 @@
 				</executions>
 			</plugin>
 			<!-- Solo funciona hasta JDK 8 - Evaluar impacto en tests -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.11</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjrt</artifactId>
-						<version>${org.aspectj-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjtools</artifactId>
-						<version>${org.aspectj-version}</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<goals>
- 							<goal>compile</goal>    <!-- weave all main classes -->
- 							<goal>test-compile</goal> <!--   weave all test classes -->
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<outxml>true</outxml>
-					<complianceLevel>${java-version}</complianceLevel>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-				</configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>aspectj-maven-plugin</artifactId> -->
+<!-- 				<version>1.11</version> -->
+<!-- 				<dependencies> -->
+<!-- 					<dependency> -->
+<!-- 						<groupId>org.aspectj</groupId> -->
+<!-- 						<artifactId>aspectjrt</artifactId> -->
+<!-- 						<version>${org.aspectj-version}</version> -->
+<!-- 					</dependency> -->
+<!-- 					<dependency> -->
+<!-- 						<groupId>org.aspectj</groupId> -->
+<!-- 						<artifactId>aspectjtools</artifactId> -->
+<!-- 						<version>${org.aspectj-version}</version> -->
+<!-- 					</dependency> -->
+<!-- 				</dependencies> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!--  							<goal>compile</goal>    weave all main classes -->
+<!--  							<goal>test-compile</goal>   weave all test classes -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 				<configuration> -->
+<!-- 					<outxml>true</outxml> -->
+<!-- 					<complianceLevel>${java-version}</complianceLevel> -->
+<!-- 					<source>${java-version}</source> -->
+<!-- 					<target>${java-version}</target> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 			<plugin>
 			    <groupId>org.eclipse.m2e</groupId>
 			    <artifactId>lifecycle-mapping</artifactId>
