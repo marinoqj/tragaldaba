@@ -146,7 +146,7 @@
 
 
 <script>
-    // ???IMPORTANTE!!! >>> El script de recorte de texto necesita la siguiente clase css para funcionar correctamente
+    // ¡¡¡IMPORTANTE!!! >>> El script de recorte de texto necesita la siguiente clase css para funcionar correctamente
     // .remaining-content span {
     //     display:none;
     // }
@@ -193,6 +193,7 @@
         document.getElementById('pedidoForm').reset();
         <c:forEach items="${constantes}" var="constante">
         document.getElementById('${constante.literal}Radio_subtotal').value = "0.00";
+        document.getElementById('${constante.literal}Radio_selected').value = "";
         </c:forEach>
 
 
