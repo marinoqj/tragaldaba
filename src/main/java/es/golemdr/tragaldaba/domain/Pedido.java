@@ -118,6 +118,27 @@ public class Pedido {
 	public void setPlatos(List<Plato> platos) {
 		this.platos = platos;
 	}
+	
+	public void setPlatosFromPlatosMongo(List<PlatoMongo> listPlatosMongo) {
+		List<Plato> listPlatos = new ArrayList<>();
+		Plato platoNormal = null;
+		
+		for(PlatoMongo platoMongo : listPlatosMongo) {
+			platoNormal = new Plato();
+			
+			platoNormal.setIdPlato(platoMongo.getIdPlato());
+			platoNormal.setNombre(platoMongo.getNombre());
+			platoNormal.setPrecio(platoMongo.getPrecio());
+			platoNormal.setNombreFoto(platoMongo.getNombreFoto());
+			platoNormal.setTipo(platoMongo.getTipo());
+			platoNormal.setDescripcion(platoMongo.getDescripcion());
+			platoNormal.setActivo(platoMongo.getActivo());
+			
+			listPlatos.add(platoNormal);
+		}
+		
+		setPlatos(listPlatos);
+	}	
 
 	@Override
 	public String toString() {
@@ -125,6 +146,8 @@ public class Pedido {
 				+ fecha + ", tipoEntrega=" + tipoEntrega + ", idProveedor=" + idProveedor + ", platos=" + platos
 				+ ", cliente=" + cliente + "]";
 	}
+
+
 
 	
 

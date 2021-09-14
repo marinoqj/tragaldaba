@@ -13,30 +13,26 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.golemdr.tragaldaba.controller.constantes.ForwardConstants;
 import es.golemdr.tragaldaba.controller.constantes.UrlConstants;
 import es.golemdr.tragaldaba.domain.Cliente;
 import es.golemdr.tragaldaba.domain.Constante;
 import es.golemdr.tragaldaba.domain.Pedido;
-import es.golemdr.tragaldaba.domain.Plato;
+import es.golemdr.tragaldaba.domain.PlatoMongo;
 import es.golemdr.tragaldaba.ext.utils.tools.ConstanteDomainUtils;
 import es.golemdr.tragaldaba.ext.utils.tools.PreparadorPedidos;
 import es.golemdr.tragaldaba.form.TragaldabaForm;
 import es.golemdr.tragaldaba.service.ClientesService;
 import es.golemdr.tragaldaba.service.ConstantesService;
 import es.golemdr.tragaldaba.service.PedidosService;
-import es.golemdr.tragaldaba.service.PlatosService;
+import es.golemdr.tragaldaba.service.PlatosMongoService;
 
 
 @Controller
@@ -49,8 +45,12 @@ public class TragaldabaController {
 	private static final String FAMILIA_PLATOS = "Platos";
 	private static final String CONSTANTES = "constantes";
 	
+//	@Autowired
+//	private PlatosService platosService;
+	
 	@Autowired
-	private PlatosService platosService;
+	private PlatosMongoService platosMongoService;
+
 	
 	@Autowired
 	private ConstantesService constantesService;
@@ -64,7 +64,7 @@ public class TragaldabaController {
 	@GetMapping(value=UrlConstants.URL_REALIZAR_PEDIDO)
 	public String list(Map<String, Object> map, HttpServletRequest request) {
 		
-		List<Plato> platos = platosService.getPlatos();
+		List<PlatoMongo> platos = platosMongoService.getPlatos();
 		List<Constante> todasConstantes =  constantesService.getConstantes();
 		List<Constante> contantesFiltradas = ConstanteDomainUtils.filtrarPorFamilia(FAMILIA_PLATOS, todasConstantes);
 		
@@ -125,11 +125,11 @@ public class TragaldabaController {
 	
 
 			List<String> listaIdsPlatos = PreparadorPedidos.stringToList(idsPlatosPedido);
-			List<Plato> platos = new ArrayList<Plato>();
-			Plato plato = null;
+			List<PlatoMongo> platosMongo = new ArrayList<>();
+			PlatoMongo plato = null;
 			for(String idPlato : listaIdsPlatos) {
-				plato = platosService.getById(Long.parseLong(idPlato));
-				platos.add(plato);
+				plato = platosMongoService.getById(Long.parseLong(idPlato));
+				platosMongo.add(plato);
 			}
 			
 			// Traspasamos la info del formulario al objeto pedido que vamos a grabar
@@ -138,7 +138,7 @@ public class TragaldabaController {
 			
 			pedido.setNumArticulos(pedidoAux.getNumArticulos());
 			pedido.setTotal(pedidoAux.getTotal());
-			pedido.setPlatos(platos);
+			pedido.setPlatosFromPlatosMongo(platosMongo);
 			
 			pedido.setFecha(new Date(System.currentTimeMillis()));
 			
