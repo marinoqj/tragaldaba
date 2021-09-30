@@ -47,7 +47,7 @@ $(document).ready(function(){
 		<div class="modal-content">
 			<div class="modal-header  bg-danger">
 				<h5 class="modal-title text-white">
-					<i class="fas fa-exclamation-triangle fa-sm"></i>&nbsp;&nbsp;&#161;Atenci&oacute;n&#33;
+					<em class="fas fa-exclamation-triangle fa-sm"></em>&nbsp;&nbsp;&#161;Atenci&oacute;nnnn&#33;
 				</h5>
 				<button class="close text-white" data-dismiss="modal">&times;</button>
 			</div>
