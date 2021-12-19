@@ -53,7 +53,7 @@
 
 <div class="row">
 	<div class="col-md-3 col-lg-4">&nbsp;</div>
-	<div class="col-md-6 col-lg-4 align-middle">usuario -> a  // admin --> 1</div>
+	<div class="col-md-6 col-lg-4 align-middle">usuario -> a  // password --> 1</div>
 	<div class="col-md-3 col-lg-4">&nbsp;</div>
 </div>
 
