@@ -17,7 +17,7 @@
 		<spring-security-version>5.2.10.RELEASE</spring-security-version>
 		<spring-data-mongodb-version>3.1.12</spring-data-mongodb-version>
 		<org.aspectj-version>1.8.1</org.aspectj-version>
-		<hibernate.version>5.2.11.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<c3p0.version>0.9.5.2</c3p0.version>
 		<org.mongodb-version>4.1.2</org.mongodb-version>
 		<!--  This format is used by SonarQube. If you need another format see "buildnumber-maven-plugin" -->
